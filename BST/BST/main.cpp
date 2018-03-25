@@ -40,20 +40,34 @@ public:
             if (newN -> val > current -> val){
                 if (current-> rightC->length != -1){ // instead of nullptr, we use some fictious node
                     current->length = max(current->leftC->length, current->rightC->length+1)+1;
+                    
+                    
+                    
+                    
                     current = current-> rightC;
                     
                 }
                 else{
+                    current->length = max(current->leftC->length, current->rightC->length+1)+1;
                     current -> rightC = newN;
                     break;
                 }
             }
+            
             else{
                 if (current -> leftC->length != -1){
                     current->length = max(current->leftC->length+1, current->rightC->length)+1;
+                    
+                    
+                    cout << "break point " << endl;
+                    
                     current = current -> leftC;
+                    
+                    
+                    
                 }
                 else{
+                    current->length = max(current->leftC->length+1, current->rightC->length)+1;
                     current -> leftC = newN;
                     break;
                 }
@@ -63,33 +77,9 @@ public:
         }
             
             newN -> parent = current;
-        
-//        BSTNode* current = topNode;
-//        BSTNode* moveNext;
-//        do{
-//            if (newN -> val > current -> val){
-//                current-> size +=1;
-//                moveNext = current -> rightC;
-//            }
-//            else{
-//                current-> size +=1;
-//                moveNext = current -> leftC;
-//
-//            }
-//            if (moveNext != nullptr){
-//                current = moveNext;
-//            }
-//        }while(moveNext != nullptr);
-//        newN -> parent = current;
-//        if (newN -> val > current -> val){
-//            current -> rightC = newN;
-//
-//        }
-//        else{
-//            current -> leftC = newN;
-//
-//        }
+
     }
+    
     
 /*   we fix an imbalance at the most local level (involving only 3 nodes)
  4                                                              6
@@ -208,38 +198,46 @@ public:
 //    }
 };
 int main(){
-    BSTNode *n1 = new BSTNode(49);
-    BSTNode *n2 = new BSTNode(46);
-    BSTNode *n3 = new BSTNode(79);
-    BSTNode *n4 = new BSTNode(64);
-    BSTNode *n5 = new BSTNode(83);
-    BSTNode *n6 = new BSTNode(43);
-
-
-
-    BST tree(n1);
-    tree.insert(n2);
-    tree.insert(n3);
-    tree.insert(n4);
-    tree.insert(n5);
-    tree.insert(n6);
-    cout << tree.search(46) << endl;
-     tree.inOrderTranversal(tree.topNode);
-    cout << "Test " << endl;
-    cout << tree.successor(46) << endl;
-    cout << "Yeah" << endl;
-    
-    
-//    BSTNode *n1 = new BSTNode(8);
-//    BSTNode *n2 = new BSTNode(6);
-//    BSTNode *n3 = new BSTNode(4);
+//    BSTNode *n1 = new BSTNode(49);
+//    BSTNode *n2 = new BSTNode(46);
+//    BSTNode *n3 = new BSTNode(79);
+//    BSTNode *n4 = new BSTNode(64);
+//    BSTNode *n5 = new BSTNode(83);
+//    BSTNode *n6 = new BSTNode(43);
+//
+//
+//
 //    BST tree(n1);
 //    tree.insert(n2);
 //    tree.insert(n3);
+//    tree.insert(n4);
+//    tree.insert(n5);
+//    tree.insert(n6);
+//    cout << tree.search(46) << endl;
+//     tree.inOrderTranversal(tree.topNode);
+//    cout << "Test " << endl;
+//    cout << tree.successor(46) << endl;
+//    cout << "Yeah" << endl;
 //
-//    cout << "first round " << endl;
-//
-//    tree.rightRotate(n1);
+    
+    BSTNode *n1 = new BSTNode(8);
+    BSTNode *n2 = new BSTNode(6);
+    BSTNode *n3 = new BSTNode(4);
+    BST tree(n1);
+    tree.insert(n2);
+    tree.insert(n3);
+
+    cout << "first round " << endl;
+    cout << "for 8: " << boolalpha << tree.checkAVL(n1) << endl;
+
+    
+    tree.rightRotate(n1);
+    cout << "for 6: " << boolalpha << tree.checkAVL(n2) << endl;
+
+    
+//    cout << "checking for balanced tree " << endl;
+//    cout << "for 49: " << boolalpha << tree.checkAVL(n1) << endl;
+    
     
     cout << "second round " << endl;
 }

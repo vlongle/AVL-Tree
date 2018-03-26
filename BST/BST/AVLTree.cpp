@@ -58,6 +58,16 @@
         
         newN -> parent = current;
         
+        
+        // THIS PART OF CODE IS WRONG BECAUSE HAVEN'T CHECKED THE ZIG-ZAG CASE
+//        // check AVL part. The fixAVL take O(1), but bubling up may take O(logn)
+//        while (newN != nullptr){ // eventually newN must reach the topNode whose parent = nullptr
+//            fixAVL(newN);
+//            std:: cout << "reassign parent " << std:: endl;
+//            newN = newN -> parent;
+//            std::cout << "newN: " << newN << " | " << std::endl;
+//        }
+        
     }
     
     
@@ -113,21 +123,11 @@
 
     // 0 if satisfy AVL, -1 if left-heavy, 1 if right heavy
     int BST::checkAVL(BSTNode* check){
-        int diff = check->rightC->length - check->leftC->length;
-        
-        
-        if (diff >1){
-                        std::cout << "checkAVL: returning 1 " << std::endl;
-            return 1;
+        if (check == nullptr){
+            return 69;
         }
-        else if (diff < -1){
-            std::cout << "checkAVL: returning -1 " << std::endl;
-            return -1;
-        }
-        else{
-                        std::cout << "checkAVL: returning 0 " << std::endl;
-            return 0;
-        }
+        int diff = check->leftC->length - check->rightC->length;
+        return diff;
     }
 
 
@@ -138,6 +138,9 @@ void BST::fixAVL(BSTNode* myNode){
     std:: cout << "direction: " << direction << std:: endl;
     
     switch (direction) {
+        case 69:
+            std:: cout << "Bullshit response " << std::endl;
+            break;
         case 0:
             std:: cout << "Already balanced " << std::endl;
             break;
@@ -187,7 +190,7 @@ void BST::fixAVL(BSTNode* myNode){
         inOrderTranversal(top->rightC);
         return 0;
     }
-    
+
     // find the min member in the subtree with nodeSub as its root
     BSTNode* BST::min(BSTNode* nodeSub){
         BSTNode* target = nodeSub;
@@ -206,6 +209,8 @@ void BST::fixAVL(BSTNode* myNode){
             return myNode-> parent;
         }
     }
+
+
     
     // UR CODE SUCKS PLEASE FIND SOME C++ BOOK TO MAKE IT MORE OPTIMAL
     

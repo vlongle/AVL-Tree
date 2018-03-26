@@ -10,6 +10,7 @@
 #define AVLTree_hpp
 
 #include <stdio.h>
+#include <stack>
 // right is bigger, left is smaller
 struct BSTNode{
     // default
@@ -51,6 +52,7 @@ public:
     BSTNode* min(BSTNode* nodeSub);
     BSTNode* successor(int val);
     void fixAVL(BSTNode* myNode);
+    void printTreeStack();
 };
 
 #endif /* AVLTree_hpp */

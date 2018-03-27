@@ -4,12 +4,14 @@ using namespace std;
 
 
 int main(){
-    BSTNode *n1 = new BSTNode(49);
-    BSTNode *n2 = new BSTNode(46);
-    BSTNode *n3 = new BSTNode(79);
-    BSTNode *n4 = new BSTNode(64);
-    BSTNode *n5 = new BSTNode(83);
-    BSTNode *n6 = new BSTNode(43);
+    BSTNode *n1 = new BSTNode(100);
+    BSTNode *n2 = new BSTNode(69);
+    BSTNode *n3 = new BSTNode(60);
+    BSTNode *n4 = new BSTNode(65);
+    BSTNode *n5 = new BSTNode(101);
+    BSTNode *n6 = new BSTNode(105);
+    BSTNode *n7 = new BSTNode(103);
+    BSTNode *n8 = new BSTNode(106);
 
 
 
@@ -19,12 +21,25 @@ int main(){
     tree.insert(n4);
     tree.insert(n5);
     tree.insert(n6);
-    cout << tree.search(46) << endl;
+    tree.insert(n7);
+    tree.insert(n8);
+
+    cout << "--------END OF INSERTION " << endl;
+    
+    
+    // SEARCH HAS BUGG
+//    cout << tree.search(46) << endl;
+    
+    
+    
      tree.inOrderTranversal(tree.topNode);
     
     cout << "Test " << endl;
-    tree.printTreeStack();
-    cout << tree.successor(46) << endl;
+    
+    // SUCCESSOR ALSO DEPEND ON SEARCH
+//    cout << tree.successor(46) << endl;
+    
+    
     cout << "Yeah" << endl;
 
     

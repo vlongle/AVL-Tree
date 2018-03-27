@@ -61,12 +61,16 @@
         
         // THIS PART OF CODE IS WRONG BECAUSE HAVEN'T CHECKED THE ZIG-ZAG CASE
 //        // check AVL part. The fixAVL take O(1), but bubling up may take O(logn)
-//        while (newN != nullptr){ // eventually newN must reach the topNode whose parent = nullptr
-//            fixAVL(newN);
-//            std:: cout << "reassign parent " << std:: endl;
-//            newN = newN -> parent;
-//            std::cout << "newN: " << newN << " | " << std::endl;
-//        }
+        while (newN != nullptr){ // eventually newN must reach the topNode whose parent = nullptr
+            fixAVL(newN);
+            std:: cout << "reassign parent " << std:: endl;
+            newN = newN -> parent;
+            std::cout << "newN: " << newN << " | ";
+            
+            if (newN != nullptr){
+                std:: cout << newN-> val << std::endl;
+            }
+        }
         
     }
     
@@ -77,12 +81,16 @@
      8
      
      */
-    
-    void BST::leftRotate(BSTNode* grandpa){
+
+
+    void BST::counterclock(BSTNode* grandpa){
         BSTNode* middle = grandpa-> rightC;
         // Have to change great grandpa as well
         // insert code HERE
-
+        grandpa -> length = std::max(grandpa->length, middle->leftC->length+1);
+        middle->length =std::max(grandpa->length, middle->rightC->length+1);
+        
+        
         middle -> size = grandpa-> size;
         grandpa-> size = middle-> size - middle->rightC->size-1;
         
@@ -101,14 +109,15 @@
      6               ----->          4       8
      4
      */
-    void BST::rightRotate(BSTNode* grandpa){
+    void BST::clockwise(BSTNode* grandpa){
         BSTNode* middle = grandpa-> leftC;
+        
         std:: cout << "middle is " << middle << std:: endl;
+        
         middle -> size = grandpa-> size;
         grandpa-> size = middle-> size - middle->leftC->size-1;
-        
-        
-        
+        grandpa -> length = std::max(grandpa->length, middle->rightC->length+1);
+        middle->length =std::max(grandpa->length, middle->leftC->length+1);
         middle-> parent = grandpa-> parent;
         grandpa->parent = middle;
         grandpa->leftC = middle-> rightC;
@@ -123,11 +132,24 @@
 
     // 0 if satisfy AVL, -1 if left-heavy, 1 if right heavy
     int BST::checkAVL(BSTNode* check){
-        if (check == nullptr){
+        if (check == nullptr || check-> leftC->length == -1 &&  check-> rightC->length == -1){
             return 69;
         }
-        int diff = check->leftC->length - check->rightC->length;
-        return diff;
+        std:: cout << "From checkAVL, check->rightC->length: " << check->rightC->length;
+        std::cout<< " check->leftC->length: " << check->leftC->length << std:: endl;
+        int diff = check->rightC->length - check->leftC->length;
+        if (diff > 1){
+            std:: cout << "right heavy " << std:: endl;
+            return 1;
+        }
+        else if (diff <-1){
+            std:: cout << "left heavy " << std::endl;
+            return -1;
+        }
+        else{
+            std:: cout << "difference = 0, already balanced " << std::endl;
+            return 0;
+        }
     }
 
 
@@ -137,27 +159,32 @@ void BST::fixAVL(BSTNode* myNode){
     int direction = checkAVL(myNode);
     std:: cout << "direction: " << direction << std:: endl;
     
-    switch (direction) {
-        case 69:
-            std:: cout << "Bullshit response " << std::endl;
-            break;
-        case 0:
-            std:: cout << "Already balanced " << std::endl;
-            break;
-            
-        case 1:
-            std:: cout << "Right heavy " << std::endl;
-            
-            
-            leftRotate(myNode);
-            break;
-            
-        case -1:
-            std:: cout << "Left heavy " << std::endl;
-            rightRotate(myNode);
-            break;
+    if (direction ==-1){
+        std::cout << "dirc == -1 " << std::endl;
+        if (myNode->leftC->rightC->length >= myNode->leftC->leftC->length){
+            counterclock(myNode->leftC);
+            clockwise(myNode);
+        }
+        else{
+            clockwise(myNode);
+        }
     }
-}
+        else if (direction == 1){
+            std::cout << "dirc == 1 " << std::endl;
+
+            if (myNode->rightC->leftC->length >= myNode->rightC->rightC->length){
+                clockwise(myNode->rightC);
+                counterclock(myNode);
+            }
+            else{
+                counterclock(myNode);
+            }
+        }
+        
+        
+    }
+
+
     
     
     

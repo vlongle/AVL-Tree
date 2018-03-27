@@ -44,8 +44,8 @@ public:
     BST(BSTNode* top): topNode(top){};
     
     void insert(BSTNode* newN);
-    void leftRotate(BSTNode* grandpa);
-    void rightRotate(BSTNode* grandpa);
+    void counterclock(BSTNode* grandpa);
+    void clockwise(BSTNode* grandpa);
     int checkAVL(BSTNode* check);
     BSTNode* search(int searchVal);
     int inOrderTranversal(BSTNode* top);

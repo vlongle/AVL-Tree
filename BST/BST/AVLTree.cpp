@@ -15,6 +15,14 @@
     void BST::insert(BSTNode* newN){
         BSTNode* current = topNode;
         
+        
+        std:: cout << "insert(): newN: " << newN -> val << std::endl;
+        
+        
+        
+        
+        
+        
         while (true){
             current -> size +=1;
             if (newN -> val > current -> val){
@@ -59,6 +67,15 @@
         newN -> parent = current;
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
         // THIS PART OF CODE IS WRONG BECAUSE HAVEN'T CHECKED THE ZIG-ZAG CASE
 //        // check AVL part. The fixAVL take O(1), but bubling up may take O(logn)
         while (newN != nullptr){ // eventually newN must reach the topNode whose parent = nullptr
@@ -83,25 +100,39 @@
      */
 
 
+
+// COUNTERCLOCK BUGGY??
     void BST::counterclock(BSTNode* grandpa){
         BSTNode* middle = grandpa-> rightC;
         // Have to change great grandpa as well
         // insert code HERE
-        grandpa -> length = std::max(grandpa->length, middle->leftC->length+1);
-        middle->length =std::max(grandpa->length, middle->rightC->length+1);
+        grandpa -> length = std::max(grandpa->leftC->length, middle->leftC->length)+1;
+        middle->length =std::max(grandpa->length, middle->rightC->length)+1
+        ;
         
         
         middle -> size = grandpa-> size;
         grandpa-> size = middle-> size - middle->rightC->size-1;
         
+
+        if (grandpa->parent== nullptr){ // grandpa == topNode
+            middle->parent = nullptr;
+            topNode = middle;
+        }
+        else{
+            if (grandpa->parent->leftC == grandpa){
+                grandpa->parent->leftC = middle;
+            }
+            else{
+                grandpa->parent->rightC=middle;
+            }
+        }
         
         middle-> parent = grandpa-> parent;
         grandpa->parent = middle;
         grandpa->rightC = middle-> leftC;
         middle->leftC = grandpa;
-        if (grandpa == topNode){
-            topNode = middle;
-        }
+
     }
     
     /*
@@ -116,19 +147,37 @@
         
         middle -> size = grandpa-> size;
         grandpa-> size = middle-> size - middle->leftC->size-1;
-        grandpa -> length = std::max(grandpa->length, middle->rightC->length+1);
-        middle->length =std::max(grandpa->length, middle->leftC->length+1);
+        grandpa -> length = std::max(grandpa->rightC->length, middle->rightC->length)+1;
+        middle->length =std::max(grandpa->length, middle->leftC->length)+1;
+        
+        
+        
+        if (grandpa->parent== nullptr){ // grandpa == topNode
+            middle->parent = nullptr;
+            topNode = middle;
+        }
+        else{
+        if (grandpa->parent->leftC == grandpa){
+            grandpa->parent->leftC = middle;
+        }
+        else{
+            grandpa->parent->rightC=middle;
+        }
+        }
+        
+        
         middle-> parent = grandpa-> parent;
         grandpa->parent = middle;
         grandpa->leftC = middle-> rightC;
         middle->rightC = grandpa;
-        if (grandpa == topNode){
-            topNode = middle;
-        }
+        
+ 
+        
+        
     }
 
 
-
+// Counterclockwise & clockwise length has problem
 
     // 0 if satisfy AVL, -1 if left-heavy, 1 if right heavy
     int BST::checkAVL(BSTNode* check){
@@ -156,6 +205,7 @@
 
 
 void BST::fixAVL(BSTNode* myNode){
+    std:: cout << "Calling fixAVL on " << myNode -> val << std:: endl;
     int direction = checkAVL(myNode);
     std:: cout << "direction: " << direction << std:: endl;
     

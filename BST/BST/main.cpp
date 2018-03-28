@@ -42,6 +42,17 @@ int main(){
     
     cout << "Yeah" << endl;
 
+    tree.deleteN(65);
+    cout << "-------DELETE TREE " << endl;
+    tree.inOrderTranversal(tree.topNode);
+    cout << "Yeah" << endl;
+
+    tree.deleteN(106);
+    cout << "-------DELETE TREE " << endl;
+    tree.inOrderTranversal(tree.topNode);
+    cout << "Yeah" << endl;
+
+    
     
 //    BSTNode *n1 = new BSTNode(8);
 //    BSTNode *n2 = new BSTNode(6);

@@ -51,8 +51,11 @@ public:
     int inOrderTranversal(BSTNode* top);
     BSTNode* min(BSTNode* nodeSub);
     BSTNode* successor(int val);
+    BSTNode* predecessor(int val);
     void fixAVL(BSTNode* myNode);
     void printTreeStack();
+    
+    void deleteN(int searchVal);
 };
 
 #endif /* AVLTree_hpp */

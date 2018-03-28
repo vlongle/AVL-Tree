@@ -277,24 +277,91 @@ void BST::fixAVL(BSTNode* myNode){
         return target; // if the nodeSub has no leftC, just return nodeSub itself
     }
     
-    BSTNode* BST::successor(int val){ // next larger node
-        BSTNode* myNode  = search(val);
-        if (myNode->rightC->length != -1) {
-            return min(myNode->rightC);
-        }
-        else{
-            return myNode-> parent;
-        }
+BSTNode* BST::successor(int val){ // next larger node
+    BSTNode* myNode  = search(val);
+    if (myNode->rightC->length != -1) {
+        return min(myNode->rightC);
     }
+    else{
+        return myNode-> parent;
+    }
+}
 
-
+BSTNode* BST::predecessor(int val){ // next larger node
+    BSTNode* myNode  = search(val);
+    if (myNode->leftC->length != -1) {
+        return min(myNode->rightC);
+    }
+    else{
+        return myNode-> parent;
+    }
+}
     
     // UR CODE SUCKS PLEASE FIND SOME C++ BOOK TO MAKE IT MORE OPTIMAL
     
-    //    void deleteN(int searchVal){
-    //        BSTNode* delN = search(searchVal);
-    //        if (delN != nullptr){
-    //            delN -> parent
-    //        }
-    //    }
+void BST::deleteN(int searchVal){
+            BSTNode* delN = search(searchVal);
+    if (delN->rightC->length == -1 && delN->leftC->length==-1 ){ // leaf
+        if (delN == delN->parent->leftC){
+            delN->parent->leftC = delN->leftC; // the fictious leaf
+        }
+        else{
+            delN->parent->rightC = delN->leftC;
+        }
+        delete delN;
+    } // leaf
+    
+    else if (delN->rightC->length == -1){ // meaning leftC still active
+        if (delN == delN->parent->leftC){
+            delN->parent->leftC = delN->leftC; // the fictious leaf
+        }
+        else{
+            delN->parent->rightC = delN->leftC;
+        }
+        delete delN;
+    }
+    else if (delN->leftC->length == -1){
+        if (delN == delN->parent->leftC){
+            delN->parent->leftC = delN->rightC; // the fictious leaf
+        }
+        else{
+            delN->parent->rightC = delN->rightC;
+        }
+        delete delN;
+    }
+    else{ // have both left & right child
+    BSTNode* succ = successor(searchVal);
+    succ-> rightC->parent = succ->parent;
+        if (succ->parent->rightC == succ){
+            succ->parent->rightC = succ ->rightC;
+        }
+        else{
+    succ -> parent-> leftC = succ->rightC;
+        }
+    // remove succ in place
+        
+    succ -> parent = delN -> parent;
+    succ -> rightC = delN->rightC;
+    succ->leftC = delN->leftC;
+        
+        delN->rightC->parent = succ;
+        delN->leftC->parent = succ;
+
+        
+        if (delN->parent->leftC == delN){
+            delN->parent->leftC = succ;
+        }
+        else{
+            delN->parent->rightC = succ;
+        }
+        
+    
+    delete delN;
+        }
+
+//            if (delN != nullptr){
+//                delN -> parent;
+//            }
+        }
+
 

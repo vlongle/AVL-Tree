@@ -54,7 +54,6 @@ public:
     BSTNode* predecessor(int val);
     void fixAVL(BSTNode* myNode);
     void printTreeStack();
-    
     void deleteN(int searchVal);
 };
 

@@ -283,6 +283,9 @@ BSTNode* BST::successor(int val){ // next larger node
         return min(myNode->rightC);
     }
     else{
+        while (myNode -> parent -> leftC != myNode){
+            myNode = myNode-> parent;
+        }
         return myNode-> parent;
     }
 }
@@ -293,6 +296,9 @@ BSTNode* BST::predecessor(int val){ // next larger node
         return min(myNode->rightC);
     }
     else{
+        while (myNode -> parent -> rightC != myNode){
+            myNode = myNode-> parent;
+        }
         return myNode-> parent;
     }
 }
@@ -363,5 +369,24 @@ void BST::deleteN(int searchVal){
 //                delN -> parent;
 //            }
         }
+
+
+void BST::printTreeStack(){
+    std::stack<BSTNode*> s;
+    BSTNode* current = topNode;
+    while (s.size()>0 or topNode -> length != -1){
+        if (current->length !=-1){
+            s.push(current);
+            current = current -> leftC;
+        }
+        else{
+            current = s.top();
+            s.pop();
+            std:: cout << current -> val << std:: endl;
+            current = current -> rightC;
+        }
+    }
+    }
+
 
 

@@ -36,21 +36,24 @@ int main(){
     
     cout << "Test " << endl;
     
-    // SUCCESSOR ALSO DEPEND ON SEARCH
-//    cout << tree.successor(46) << endl;
+    tree.printTreeStack();
+    cout << "-----END------ " << endl;
     
-    
-    cout << "Yeah" << endl;
-
-    tree.deleteN(65);
-    cout << "-------DELETE TREE " << endl;
-    tree.inOrderTranversal(tree.topNode);
-    cout << "Yeah" << endl;
-
-    tree.deleteN(106);
-    cout << "-------DELETE TREE " << endl;
-    tree.inOrderTranversal(tree.topNode);
-    cout << "Yeah" << endl;
+//    // SUCCESSOR ALSO DEPEND ON SEARCH
+////    cout << tree.successor(46) << endl;
+//
+//
+//    cout << "Yeah" << endl;
+//
+//    tree.deleteN(65);
+//    cout << "-------DELETE TREE " << endl;
+//    tree.inOrderTranversal(tree.topNode);
+//    cout << "Yeah" << endl;
+//
+//    tree.deleteN(106);
+//    cout << "-------DELETE TREE " << endl;
+//    tree.inOrderTranversal(tree.topNode);
+//    cout << "Yeah" << endl;
 
     
     
